@@ -44,24 +44,66 @@ do
 while (numOption != 2);
     Console.WriteLine("====================");
     Console.WriteLine($"Cantidad total de productos: {cantProduct}");
+decimal totalwDiscount = sumProduct;
     if (sumProduct <= 20000) 
-        {
-            Console.WriteLine($"Suma total de los precios: {sumProduct}");
-        }
+    {
+        Console.WriteLine($"Suma total de los precios: {sumProduct}");
+        Console.WriteLine("====================");
+    }
     else if ( sumProduct < 50000) 
-        {
+    {
         decimal discount = sumProduct * minDsct;
+        totalwDiscount = sumProduct - discount;
         Console.WriteLine($"Subtotal de los precios: {sumProduct}");
         Console.WriteLine($"Descuento aplicado: {discount} (5%)");
-        Console.WriteLine($"Total de los precios: {sumProduct - discount}");
+        Console.WriteLine($"Total de los precios: {totalwDiscount}");
+        Console.WriteLine("====================");
     }
     else if (sumProduct >= 50000)
     {
         decimal discount = sumProduct * maxDsct;
+        totalwDiscount = sumProduct - discount;
         Console.WriteLine($"Subtotal de los precios: {sumProduct}");
         Console.WriteLine($"Descuento aplicado: {discount} (10%)");
-        Console.WriteLine($"Total de los precios: {sumProduct - discount}");
+        Console.WriteLine($"Total de los precios: {totalwDiscount}");
+        Console.WriteLine("====================");
     }
 
+    int optChosen;
+    do
+    {
 
+    Console.WriteLine("Medio de pago: ");
+    Console.WriteLine("1 - Efectivo ");
+    Console.WriteLine("2 - Débito ");
+    Console.WriteLine("3 - Crédito ");
+    Console.Write("Marque el número del método que prefiera: ");
+    optChosen = int.Parse(Console.ReadLine());
 
+    switch (optChosen)
+    {
+        case 1:
+            decimal discount = totalwDiscount * maxDsct;
+            Console.WriteLine("Tiene un 10% de descuento adicional!");
+            Console.WriteLine($"Su total a pagar ahora es de: {totalwDiscount - discount}");
+            break;
+
+        case 2:
+            Console.WriteLine($"El total a pagar es de: {totalwDiscount}");
+            break;
+
+        case 3:
+            decimal maxCharge = 0.15m;
+            decimal extCharge = totalwDiscount * maxCharge;
+            Console.WriteLine("Tiene un 15% de RECARGO");
+            Console.WriteLine($"Su total a pagar ahora es de: {totalwDiscount + extCharge} ");
+            break;
+
+        default:
+            Console.WriteLine("Input desconocido, marque nuevamente");
+            break;
+        }
+    } while (optChosen > 3 || optChosen < 1);
+
+Console.ReadKey();
+    
