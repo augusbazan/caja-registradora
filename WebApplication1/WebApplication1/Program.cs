@@ -8,6 +8,8 @@ decimal sumProduct = 0;
 int numOption;
 decimal maxDsct = 0.10m;
 decimal minDsct = 0.05m;
+decimal totalDsct = 0.0m;
+decimal totalCharge = 0.0m;
 
 do
 {
@@ -52,19 +54,19 @@ decimal totalwDiscount = sumProduct;
     }
     else if ( sumProduct < 50000) 
     {
-        decimal discount = sumProduct * minDsct;
-        totalwDiscount = sumProduct - discount;
+        totalDsct = sumProduct * minDsct;
+        totalwDiscount = sumProduct - totalDsct;
         Console.WriteLine($"Subtotal de los precios: {sumProduct}");
-        Console.WriteLine($"Descuento aplicado: {discount} (5%)");
+        Console.WriteLine($"Descuento aplicado: {totalDsct} (5%)");
         Console.WriteLine($"Total de los precios: {totalwDiscount}");
         Console.WriteLine("====================");
     }
     else if (sumProduct >= 50000)
     {
-        decimal discount = sumProduct * maxDsct;
-        totalwDiscount = sumProduct - discount;
+        totalDsct = sumProduct * maxDsct;
+        totalwDiscount = sumProduct - totalDsct;
         Console.WriteLine($"Subtotal de los precios: {sumProduct}");
-        Console.WriteLine($"Descuento aplicado: {discount} (10%)");
+        Console.WriteLine($"Descuento aplicado: {totalDsct} (10%)");
         Console.WriteLine($"Total de los precios: {totalwDiscount}");
         Console.WriteLine("====================");
     }
@@ -84,6 +86,7 @@ decimal totalwDiscount = sumProduct;
     {
         case 1:
             decimal discount = totalwDiscount * maxDsct;
+            totalDsct += discount;
             Console.WriteLine("Tiene un 10% de descuento adicional!");
             Console.WriteLine($"Su total a pagar ahora es de: {totalwDiscount - discount}");
             break;
@@ -95,6 +98,7 @@ decimal totalwDiscount = sumProduct;
         case 3:
             decimal maxCharge = 0.15m;
             decimal extCharge = totalwDiscount * maxCharge;
+            totalCharge += extCharge;
             Console.WriteLine("Tiene un 15% de RECARGO");
             Console.WriteLine($"Su total a pagar ahora es de: {totalwDiscount + extCharge} ");
             break;
@@ -103,7 +107,31 @@ decimal totalwDiscount = sumProduct;
             Console.WriteLine("Input desconocido, marque nuevamente");
             break;
         }
-    } while (optChosen > 3 || optChosen < 1);
+
+        Console.WriteLine("Presione enter para imprimir su ticket: ");
+        Console.ReadKey();
+
+        decimal total = sumProduct - totalDsct + totalCharge;
+
+        for (int i = 0; i < 30; i++) Console.Write('-');
+        Console.WriteLine();
+        Console.WriteLine("KIOSCO EL BETO");
+        for (int i = 0; i < 30; i++) Console.Write('-');
+        Console.WriteLine();
+        Console.WriteLine($"Cajero: {cashName}");
+        Console.WriteLine($"Productos: {cantProduct}");
+        Console.WriteLine($"Subtotal: {sumProduct}");
+        Console.WriteLine($"Descuento: {totalDsct}");
+        Console.WriteLine($"Recargo: {totalCharge}");
+        for (int i = 0; i < 30; i++) Console.Write('-');
+        Console.WriteLine();
+        Console.WriteLine($"Total: {total}");
+        for (int i = 0; i < 30; i++) Console.Write('-');
+
+
+} while (optChosen > 3 || optChosen < 1);
+
+    
 
 Console.ReadKey();
     
